@@ -1,0 +1,11 @@
+<%- include ('../partials/_header.ejs')  %>
+<div class="jumbotron jumbotron-fluid">
+    <div class="display-4 text-center">Edit Comment</div>
+    <div class="container">
+        <hr class="my-3">
+        <form method="POST" action="/books/<%= id %>/comments/<%= comment._id %>/edit?_method=PUT">
+         <%- include ('./_form.ejs')  %>     
+        </form>
+    </div>
+</div>   
+<%- include ('../partials/_footer.ejs') %>  

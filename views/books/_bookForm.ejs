@@ -1,0 +1,19 @@
+<div class="form-group">
+    <label for="Title">Book Title</label>
+    <input required type="text" class="form-control" id="Title" name="title" value="<%= typeof book !== 'undefined' ? book.title : ''%> ">
+  </div>
+  <div class="form-group">
+    <label for="image">Book Cover Url</label>
+    <input required type="url" class="form-control" id="image" name="image" value="<%= typeof book !== 'undefined' ? book.image : ''%> ">
+  </div>
+  <div class="form-group">
+      <label for="description">Book Description</label>
+      <textarea required name="description" class="form-control" id="description" rows="3"><%= typeof book !== 'undefined' ? book.description : ''%></textarea>
+    </div>
+  <div class="form-group">
+      <label class="form-check-label" for="price">Book Price</label>
+      <input required type="number" name="price" class="form-control" id="Title" value="<%= typeof book !== 'undefined' ? book.price : ''%>">
+  </div>
+  <button type="submit" class="btn btn-success"><%= typeof book === 'undefined' ? 'Create' : 'Update'%></button>
+  <a href="<%= typeof book === 'undefined' ? '/books' : `/books/view/${book._id}`%>" class="btn btn-success">Go Back</a>
+

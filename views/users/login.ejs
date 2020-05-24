@@ -1,0 +1,28 @@
+<%- include ('../partials/_header.ejs')  %>
+        <div class="text-center jumbotron jumbotron-fluid p-4">
+            <div class="container">
+                <h1 class="display-4">Login</h1>
+                <hr>
+                <p class="lead"> Verify Your Account</p>
+                    <div class="container">
+                        <form action="/users/login" method="POST">
+                            <div class="form-group">
+                                <label for="email"><h4>Email address</h4> </label>
+                                <input required type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email eg: xyz@abc.com" name="email" value="<%= typeof user == 'undefined' ? '' : newUser.email %>">
+                            </div>
+                            <div class="form-group">
+                                <label for="password"><h4>Password</h4> </label>
+                                <input required type="password" class="form-control" id="password" placeholder="Password" name="password" value="<%= typeof newUser == 'undefined' ? '' : user.password %>">
+                            </div>
+                            <button type="submit" class="btn btn-success" style="min-width: 30%;">Submit</button>
+                        </form>
+                        <div class="container text-left my-3">
+                            <p class="text-secondary">Don't have an Account <a href="/users/register">Register here</a></p>
+                        </div>
+                        <div class="container text-left">
+                            <p class="text-secondary">Back to Store <a href="/books">Click here</a></p>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <%- include ('../partials/_footer.ejs')  %>

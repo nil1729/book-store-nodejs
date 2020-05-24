@@ -1,0 +1,51 @@
+<%- include ('../partials/_header.ejs') %>
+<nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 lead">Book Store</span>
+    <span>
+        <a href="/books" class="btn btn-success">Go to Store</a>
+          <a href="/users/logout" class="btn btn-warning">Log Out</a>  
+    </span>
+  </nav>
+  <div class="container">
+      <div class="jumbotron my-2">
+            <div class="container container-fluid text-center">
+                <h1 class="display-4">Welcome <strong style="text-transform: capitalize;"><%= user.name  %> </strong></h1>
+                <hr class="my-2">
+                <p class="lead">
+                    This is your Dashboard
+                </p>
+                <h5>
+                   <span style="color: rgb(97, 91, 92);">email:</span> <span><%= user.email  %></span>
+                </h5>
+            </div>
+        </div>
+        <div class="jumbotron p-3">
+            <div class="d-flex justify-content-center" style="font-size: 25px; color: darkblue;">
+                Your cart
+            </div>
+            <div class="container mt-2">
+                <ul class="list-group">
+                    <% user.carts.forEach(book=>{ %>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <img src="<%= book.image  %>" alt="Book Cover" class="img-thumbnail">
+                                </div>
+                                <div class="col-md-10 d-flex flex-column justify-content-center">
+                                    <div><span class="lead" style="font-weight: 600;"><%= book.title %></span><span class="text-primary" style="font-size: 25px;"> $<%= book.price %> </span></div>
+                                    <p><%= book.description.substr(0, 200) %>.... </p>
+                                    <form action="/users/cart/<%= book._id  %>/delete?_method=DELETE" class="d-inline" method="POST">
+                                        <button type="submit" class="btn btn-danger">Remove Book</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                    <% }) %>
+                </ul> 
+            </div>
+        </div>
+  </div>
+        
+
+
+        <%- include ('../partials/_footer.ejs') %>

@@ -1,0 +1,10 @@
+<div class="form-group">
+    <label for="Title">Comment Title</label>
+    <input required type="text" class="form-control" id="Title" name="title" value="<%= typeof comment === 'undefined' ? '': comment.title %> ">
+  </div>
+    <div class="form-group">
+      <label for="content">Comment Content</label>
+      <textarea required name="content" class="form-control" id="content" rows="3"><%= typeof comment === 'undefined' ? '': comment.content %></textarea>
+    </div>
+  <button type="submit" class="btn btn-success">Save</button>
+

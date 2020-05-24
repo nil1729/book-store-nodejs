@@ -1,0 +1,55 @@
+<%- include ('../partials/_footer.ejs')  %>
+
+    <div class="container mt-2">
+        <div class="jumbotron position-relative">
+            <div class="row">
+                <a href="/books" class="btn btn-success position-absolute" style="right:1em ;top:1em">Back to Store</a>
+                <div class="col-md-4 d-flex flex-column align-items-center justify-content-center">
+                    <img style="width: 18rem;" src="<%= book.image %> " alt="" class="img-responsive">
+                </div>
+                <div class="col-md-8">
+                    <h1 class="display-4 text-success text-center"><%= book.title %></h1>
+                    <hr class="my-2">
+                    <p><%= book.description %></p>
+                    <h3 class="lead text-danger">Price: $ <%= book.price %></h3>
+                    <hr class="mb-2">
+                    <% if(typeof user !== 'undefined' && user.role === 'admin'){ %> 
+                        <a href="/books/edit/<%= book._id %>" class="btn btn-primary">Edit Details</a>
+                        <form action="/books/delete/<%= book._id  %>?_method=DELETE" class="d-inline" method="POST">
+                            <button type="submit" class="btn btn-danger">Delete Book</button>
+                        </form>
+                    <% }else{ %> 
+                    <form action="/users/cart/<%= book._id  %>?_method=PUT" class="d-inline" method="POST">
+                        <button type="submit" class="btn btn-warning">Add to Cart</button>
+                    </form>
+                <% } %> 
+                </div>
+            </div>
+        </div>
+        <div class="jumbotron p-3">
+            <div class="d-flex justify-content-end">
+                <a href="/books/<%= book._id  %>/comments/new" class="btn btn-secondary">Add a Comment</a>
+            </div>
+            <div class="container mt-2">
+                <ul class="list-group">
+                    <% book.comments.forEach(comment=>{ %>
+                        <li class="list-group-item">
+                            <span class="lead text-primary" style="font-weight: bold; text-transform: capitalize;"><%= comment.author.name  %></span>
+                            <p class="text-dark" style="font-weight: bold;"><%= comment.title  %> </p>
+                            <p><%= comment.content  %> </p>
+                            <p class="text-secondary"><%= comment.createdAt.toLocaleDateString()  %> <%= comment.createdAt.toLocaleTimeString()  %></p>
+                            <% if(typeof user !== 'undefined' && comment.author.id.equals(user._id)){ %> 
+                                <a href="/books/<%= book._id  %>/comments/<%= comment._id %>/edit" class="btn btn-warning">Edit Comment</a>
+                                <form action="/books/<%= book._id %>/comments/<%= comment._id %>/delete?_method=DELETE" class="d-inline" method="POST">
+                                    <button type="submit" class="btn btn-danger">Delete Comment</button>
+                                </form>
+                            <% } %> 
+                        </li>
+                    <% }) %>
+                </ul> 
+            </div>
+        </div>
+    </div>
+
+
+<%- include ('../partials/_header.ejs')  %> 
