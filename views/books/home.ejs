@@ -8,7 +8,7 @@
       <% if(typeof user === 'undefined'){ %>
           <a href="/users/login" class="btn btn-success">Login</a>
       <% } else{%>
-          <span class="lead mr-2" style="font-weight: 600; color: blue;text-transform: capitalize;"><%= user.name  %> </span>
+          <span class="lead mr-2 capital user-name-home"><%= user.name  %> </span>
           <a href="/users/dashboard" class="btn btn-success d-inline">Go to Dashboard</a>
       <% } %>
       <% if(typeof user !== 'undefined' && user.role === 'admin'){ %>    
@@ -23,7 +23,7 @@
         <p class="lead ml-2">View our hand-picked Tech Books from all over World</p>
     </div>
     <br>
-    <div class="container mb-4" style="display: grid; grid-template-columns: repeat(3, 1fr); grid-row-gap: 2em;">
+    <div class="container mb-4 home-books">
       <% books.forEach(book => { %>
         <div class="card" style="width: 18rem; position: relative;">
           <img  style="height: 15rem;" src="<%= book.image  %> " class="card-img-top" alt="...">

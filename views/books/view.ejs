@@ -3,9 +3,9 @@
     <div class="container mt-2">
         <div class="jumbotron position-relative">
             <div class="row">
-                <a href="/books" class="btn btn-success position-absolute" style="right:1em ;top:1em">Back to Store</a>
+                <a href="/books" class="view-back-btn btn btn-success position-absolute">Back to Store</a>
                 <div class="col-md-4 d-flex flex-column align-items-center justify-content-center">
-                    <img style="width: 18rem;" src="<%= book.image %> " alt="" class="img-responsive">
+                    <img style="width: 18rem;" src="<%= book.image %> " alt="" class="view-img-book img-responsive">
                 </div>
                 <div class="col-md-8">
                     <h1 class="display-4 text-success text-center"><%= book.title %></h1>
@@ -36,8 +36,8 @@
                 <ul class="list-group">
                     <% book.comments.forEach(comment=>{ %>
                         <li class="list-group-item">
-                            <span class="lead text-primary" style="font-weight: bold; text-transform: capitalize;"><%= comment.author.name  %></span>
-                            <p class="text-dark" style="font-weight: bold;"><%= comment.title  %> </p>
+                            <span class="lead text-primary capital font-weight-bold"><%= comment.author.name  %></span>
+                            <p class="text-dark font-weight-bold"><%= comment.title  %> </p>
                             <p><%= comment.content  %> </p>
                             <p class="text-secondary"><%= comment.createdAt.toLocaleDateString()  %> <%= comment.createdAt.toLocaleTimeString()  %></p>
                             <% if(typeof user !== 'undefined' && comment.author.id.equals(user._id)){ %> 

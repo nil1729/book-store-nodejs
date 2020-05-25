@@ -1,0 +1,29 @@
+::-webkit-scrollbar{
+    width: 0;
+}
+.home-books{
+    display: grid; grid-template-columns: repeat(3, 1fr); grid-row-gap: 2em;
+}
+.capital{
+    text-transform: capitalize;
+}
+.user-name-home{
+    font-weight: 600; 
+    color: blue;
+}
+.view-back-btn{
+    right:1em ;
+    top:1em;
+}
+
+@media only screen and (max-width: 600px){
+    .home-books{
+        display: block;
+    }
+    .home-books .card{
+        margin: 1em 0;
+    }
+    .view-img-book{
+        margin-top: 2em;
+    }
+}
