@@ -20,32 +20,36 @@
             </div>
         </div>
         <div class="jumbotron p-3">
-            <div class="d-flex justify-content-center" style="font-size: 25px; color: darkblue;">
-                Your cart
+            <div class="d-flex justify-content-around" style="font-size: 25px; color: darkblue;">
+                <span>Your cart <%= user.carts.length === 0 ? 'is empty' : '' %></span>
             </div>
             <div class="container mt-2">
-                <ul class="list-group">
-                    <% user.carts.forEach(book=>{ %>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <img src="<%= book.image  %>" alt="Book Cover" class="img-thumbnail">
-                                </div>
-                                <div class="col-md-10 d-flex flex-column justify-content-center">
-                                    <div><span class="lead" style="font-weight: 600;"><%= book.title %></span><span class="text-primary" style="font-size: 25px;"> $<%= book.price %> </span></div>
-                                    <p><%= book.description.substr(0, 200) %>.... </p>
-                                    <form action="/users/cart/<%= book._id  %>/delete?_method=DELETE" class="d-inline" method="POST">
-                                        <button type="submit" class="btn btn-danger">Remove Book</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </li>
-                    <% }) %>
-                </ul> 
+                <table class="table table-bordered bg-light table-responsive-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">Cover</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% user.carts.forEach(book=>{ %>
+                                <tr>
+                                    <td><img src="<%= book.image  %>" alt="Book Cover" class="img-thumbnail" style="height: 8rem; width: 8rem;"></td>
+                                    <td class="lead text-primary"><%= book.title  %> </td>
+                                    <td class="lead text-danger">$ <%= book.price  %> </td>
+                                    <td>
+                                        <form action="/users/cart/<%= book._id  %>/delete?_method=DELETE" class="d-inline" method="POST">
+                                            <button type="submit" class="btn btn-danger">Remove</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                        <% }) %>
+                    </tbody>
+                  </table>
             </div>
         </div>
   </div>
-        
-
 
         <%- include ('../partials/_footer.ejs') %>

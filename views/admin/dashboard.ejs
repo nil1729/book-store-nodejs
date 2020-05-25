@@ -1,0 +1,83 @@
+<%- include ('../partials/_header.ejs') %>
+<nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 lead">Book Store</span>
+    <span>
+        <a href="/books" class="btn btn-success">Go to Store</a>
+        <a href="/users/logout" class="btn btn-warning">Log Out</a>  
+    </span>
+  </nav>
+  <div class="container">
+      <div class="jumbotron my-2">
+            <div class="container container-fluid text-center">
+                <h1 class="display-4">Admin Panel</h1>
+                <hr class="my-2">
+                <p class="lead">
+                    Customize and Manage your Store Products. 
+                </p>
+            </div>
+        </div>
+        <div class="jumbotron p-3">
+            <div class="d-flex justify-content-center" style="font-size: 25px; color: darkblue;">
+                Books in Your Store
+            </div>
+            <div class="container mt-2">
+                <table class="table table-bordered bg-light table-responsive-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">Cover</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% books.forEach(book=>{ %>
+                                <tr>
+                                    <td><img src="<%= book.image  %>" alt="Book Cover" class="img-thumbnail" style="height: 8rem; width: 8rem;"></td>
+                                    <td class="lead text-primary"><%= book.title  %> </td>
+                                    <td class="lead text-danger">$ <%= book.price  %> </td>
+                                    <td>
+                                        <a href="/books/edit/<%= book._id %>" class="btn btn-info">Edit</a>
+                                        <form action="/books/delete/<%= book._id  %>?_method=DELETE" class="d-inline" method="POST">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                        <% }) %>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+        <div class="jumbotron p-3">
+            <div class="d-flex justify-content-center" style="font-size: 25px; color: darkblue;">
+                List of Registered Customers
+            </div>
+            <div class="container mt-2">
+                <table class="table table-bordered bg-light table-responsive-sm" style="width: 100%;">
+                    <thead>
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">ID</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% users.forEach(user=>{ %>
+                            <% if(user.role!=='admin') {%> 
+                                <tr>
+                                   <td style="text-transform: capitalize;"><%= user.name  %> </td>
+                                    <td><%= user.email  %> </td>
+                                    <td><%= user._id  %> </td>
+                                    
+                                </tr>
+                        <% } %> 
+                        <% }) %>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+        
+
+
+        <%- include ('../partials/_footer.ejs') %>

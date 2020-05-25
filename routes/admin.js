@@ -5,7 +5,9 @@ const User = require('../models/User');
 const Book = require('../models/Book');
 
 router.get('/', checkAuthorization, async (req, res) => {
-    res.send('ADMIN PANEL');
+    const books = await Book.find();
+    const users = await User.find();
+    res.render('admin/dashboard', {admin: req.user, books: books, users: users});
 });
 
 module.exports = router;

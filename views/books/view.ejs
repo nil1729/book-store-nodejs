@@ -18,11 +18,13 @@
                         <form action="/books/delete/<%= book._id  %>?_method=DELETE" class="d-inline" method="POST">
                             <button type="submit" class="btn btn-danger">Delete Book</button>
                         </form>
-                    <% }else{ %> 
+                    <% }else if(typeof user === 'undefined' || typeof user !== 'undefined' && user.carts.findIndex(b=> b.equals(book._id))===-1){ %> 
                     <form action="/users/cart/<%= book._id  %>?_method=PUT" class="d-inline" method="POST">
                         <button type="submit" class="btn btn-warning">Add to Cart</button>
                     </form>
-                <% } %> 
+                <% }else{ %>
+                    <p class="lead text-secondary">Item in Your Cart <a href="/users/dashboard" class="btn btn-primary d-inline">Go to Cart</a></p>
+                <% } %>  
                 </div>
             </div>
         </div>

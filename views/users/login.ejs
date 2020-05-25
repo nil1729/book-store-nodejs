@@ -1,9 +1,11 @@
 <%- include ('../partials/_header.ejs')  %>
         <div class="text-center jumbotron jumbotron-fluid p-4">
-            <div class="container">
+            <%- include ('../partials/_msg.ejs')  %> 
+            <div class="container">    
                 <h1 class="display-4">Login</h1>
                 <hr>
                 <p class="lead"> Verify Your Account</p>
+                    
                     <div class="container">
                         <form action="/users/login" method="POST">
                             <div class="form-group">

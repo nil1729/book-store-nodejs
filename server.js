@@ -4,7 +4,7 @@ const methodOverride = require('method-override');
 const session = require('express-session');
 const passport = require('passport');
 const connectDB = require('./config/db');
-
+const flash = require('connect-flash');
 
 connectDB(require('./config/keys').mongoURI);
 require('./config/passport')(passport);
@@ -23,6 +23,12 @@ app.use(express.static(__dirname + '/public'));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(flash());
+app.use((req, res, next) => {
+    res.locals.s_m = req.flash('success');
+    res.locals.e_m = req.flash('error');
+    next();
+});
 
 app.get('/', (req, res) => {
     res.send('INDEX');
