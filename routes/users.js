@@ -119,7 +119,7 @@ router.put('/cart/:id',  checkAuthentication , async (req, res)=>{
     try{
         const book = await Book.findById(req.params.id);
         const user = req.user;
-        user.carts.push(book);
+        user.carts.push({book});
         User.findByIdAndUpdate(user.id, user, (err, savedUser)=>{
             if(err){
                 console.log(err);
@@ -156,15 +156,41 @@ router.delete('/cart/:id/delete', checkAuthentication , async (req, res) => {
 // Dashboard
 router.get('/dashboard', checkAuthentication ,(req, res) => {
     if(req.user.role !== 'admin'){
-        User.findById(req.user.id).populate("carts").exec((err, user)=>{
+        User.findById(req.user.id).populate("carts.book").exec((err, user)=>{
             if(err){
                 res.redirect('/books');
             }else{
+                //  res.json(user);
                 res.render('users/dashboard', {user: user});
             }
         });
     }else{
          res.redirect('/admin');
+    }
+});
+
+router.post('/checkout', checkAuthentication , async (req, res) => {
+    try{
+        const oldUser = req.user;
+        oldUser.carts.forEach(cartItem => {
+             cartItem.quantity = req.body[cartItem.book];
+        });
+        await User.findByIdAndUpdate(oldUser.id, oldUser);
+
+        User.findById(oldUser.id).populate("carts.book").exec((err, user)=>{
+            if(err){
+                res.redirect('/books');
+            }else{
+                let total = 0;
+                user.carts.forEach(cartItem => {
+                    total += cartItem.quantity * cartItem.book.price
+               });
+               res.render('users/checkout', {user, total});
+            }
+        });
+    }catch(e){
+        console.log(e);
+        res.redirect('back');
     }
 });
 

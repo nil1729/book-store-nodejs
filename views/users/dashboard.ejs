@@ -1,6 +1,8 @@
 <%- include ('../partials/_header.ejs') %>
 <nav class="navbar navbar-light bg-light">
-    <span class="navbar-brand mb-0 lead">Book Store</span>
+    <span class="navbar-brand mb-0 lead">
+        <img src="https://cdn3.iconfinder.com/data/icons/book-shop-category-ouline/512/Book_Shop_Category-10-512.png" alt="" style="height: 2.5em; width: 2.5em;" class="img-thumbnail rounded-circle">
+        Book Store</span>
     <span>
         <a href="/books" class="btn btn-success">Go to Store</a>
           <a href="/users/logout" class="btn btn-warning">Log Out</a>  
@@ -22,6 +24,11 @@
         <div class="jumbotron p-3">
             <div class="d-flex justify-content-around" style="font-size: 25px; color: darkblue;">
                 <span>Your cart <%= user.carts.length === 0 ? 'is empty' : '' %></span>
+                <% if(user.carts.length !== 0)  {%> 
+                <button type="button" class="lead btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter">
+                    Checkout
+                </button>
+            <% } %> 
             </div>
             <div class="container mt-2">
                 <table class="table table-bordered bg-light table-responsive-sm">
@@ -34,14 +41,14 @@
                       </tr>
                     </thead>
                     <tbody>
-                        <% user.carts.forEach(book=>{ %>
+                        <% user.carts.forEach(cartItem=>{ %>
                                 <tr>
-                                    <td><img src="<%= book.image  %>" alt="Book Cover" class="img-thumbnail" style="height: 8rem; width: 8rem;"></td>
-                                    <td class="lead text-primary"><%= book.title  %> </td>
-                                    <td class="lead text-danger">$ <%= book.price  %> </td>
+                                    <td><img src="<%= cartItem.book.image  %>" alt="Book Cover" class="img-thumbnail" style="height: 8rem; width: 8rem;"></td>
+                                    <td class="lead text-primary"><%= cartItem.book.title  %> </td>
+                                    <td class="lead text-danger">$ <%= cartItem.book.price  %> </td>
                                     <td>
-                                        <form action="/users/cart/<%= book._id  %>/delete?_method=DELETE" class="d-inline" method="POST">
-                                            <button type="submit" class="btn btn-danger">Remove</button>
+                                        <form action="/users/cart/<%= cartItem.book._id  %>/delete?_method=DELETE" class="d-inline" method="POST">
+                                            <button type="submit" class="btn btn-sm btn-danger">Remove</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -50,6 +57,60 @@
                   </table>
             </div>
         </div>
+        <% if(user.carts.length !== 0)  {%> 
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Set Quantity of products</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form method="POST" action="/users/checkout">
+        <div class="modal-body">
+            <div class="container mt-2">
+                <table class="table table-bordered bg-light table-responsive-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% user.carts.forEach(cartItem=>{ %>
+                                <tr>
+                                    <td class="lead text-primary"><%= cartItem.book.title  %> </td>
+                                    <td class="lead text-danger">$ <%= cartItem.book.price  %> </td>
+                                    <td>
+                                        <select
+                                            name="<%= cartItem.book._id %>"
+                                            class="form-control">
+                                            <% for(let i=1;i<=10;i++){ %>
+                                                <% if(cartItem.quantity === i){ %>
+                                                    <option selected><%= i %></option>
+                                                <% }else{ %>
+                                                      <option><%= i  %> </option>
+                                                <% } %> 
+                                            <% } %>
+                                        </select>
+                                    </td>
+                                </tr>
+                        <% }) %> 
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Go To Checkout</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<% } %> 
   </div>
 
         <%- include ('../partials/_footer.ejs') %>

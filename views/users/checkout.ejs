@@ -1,0 +1,54 @@
+<%- include ('../partials/_header.ejs') %>
+<nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 lead">
+        <img src="https://cdn3.iconfinder.com/data/icons/book-shop-category-ouline/512/Book_Shop_Category-10-512.png" alt="" style="height: 2.5em; width: 2.5em;" class="img-thumbnail rounded-circle">
+        Book Store</span>
+    <span>
+        <a href="/users/dashboard" class="btn btn-sm btn-info">Cancel</a>  
+    </span>
+  </nav>
+  <div class="container mt-3">
+        <div class="jumbotron p-3">
+            <div class="d-flex justify-content-around" style="font-size: 25px; color: darkblue;">
+                <span>Your Checkout Summary</span> 
+            </div>
+            <div class="container mt-2">
+                <table class="table table-bordered bg-light table-responsive-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">Cover</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Item Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% user.carts.forEach(cartItem=>{ %>
+                                <tr>
+                                    <td><img src="<%= cartItem.book.image  %>" alt="Book Cover" class="img-thumbnail" style="height: 8rem; width: 8rem;"></td>
+                                    <td><%= cartItem.book.title  %> </td>
+                                    <td class="text-danger">$ <%= cartItem.book.price  %> </td>
+                                    <td>
+                                        <%= cartItem.quantity %> 
+                                    </td>
+                                    <td class="text-danger">
+                                        $ <%= cartItem.quantity * cartItem.book.price  %> 
+                                    </td>
+                                </tr>
+                        <% }) %>
+                        <tr class="lead font-weight-bold text-primary">
+                            <td colspan="3">Grand Total</td>
+                            <td colspan="2"> $ <%= total  %> </td>
+                        </tr>
+                    </tbody>
+                  </table>
+            </div>
+            <hr class="my-3">
+            <div class="row">
+                <button class="ml-auto mr-3 btn btn-warning">Proceed to Buy</button>
+            </div>
+        </div>
+  </div>
+
+        <%- include ('../partials/_footer.ejs') %>

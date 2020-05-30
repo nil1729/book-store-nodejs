@@ -13,13 +13,20 @@ const userSchema = mongoose.Schema({
         required: true
     },
     role:{
-        type: 'String',
+        type: String,
         required: true,
         default: 'customer'
     },
     carts:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Book"
+        book:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Book",
+        },
+        quantity:{
+            type: Number,
+            required: true,
+            default: 1
+        }
     }]
 });
 
