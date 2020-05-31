@@ -1,4 +1,4 @@
-### BOOK STORE Website (Ecommerce Type)
+## BOOK STORE Website (Ecommerce Type)
 ---
 * This Site is a mini Project using NodeJS. Which has a Customer Panel and a Admin Panel.
 
@@ -10,14 +10,14 @@
 * <img src="./img/web1.png"/>
 * <img src="./img/web2.png"/>
 ---
-####  ADMIN PANEL
+###  ADMIN PANEL
 * Admin can see all of his Customer and Orders.
 * Admin can only edit and delete a product.
 ---
 * <img src="./img/admin1.png"/>
 * <img src="./img/admin2.png"/>
 ---
-#### Customer Dashboard
+### Customer Dashboard
 * Customer can Comment on a Book.
 * Customer can add a book to his Cart.
 * Customer buy book in his cart. It also have a Quantity function. He can Buy More than one book of Same Type.
