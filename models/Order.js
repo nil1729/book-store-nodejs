@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 const orderSchema = mongoose.Schema({
     user:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
     createdAt:{
-        type: Date,
+        type: String,
         required: true,
-        default: Date.now()
+        default: moment().format("Do MMM YYYY")
     },
     details:[{
         book:{

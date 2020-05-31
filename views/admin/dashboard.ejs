@@ -38,7 +38,7 @@
                                 <tr>
                                     <td><img src="<%= book.image  %>" alt="Book Cover" class="img-thumbnail" style="height: 8rem; width: 8rem;"></td>
                                     <td class="lead text-primary"><%= book.title  %> </td>
-                                    <td class="lead text-danger">$ <%= book.price  %> </td>
+                                    <td class="lead text-danger">₹ <%= book.price  %> </td>
                                     <td>
                                         <a href="/books/edit/<%= book._id %>" class="btn btn-sm btn-info">Edit</a>
                                         <form action="/books/delete/<%= book._id  %>?_method=DELETE" class="d-inline" method="POST">
