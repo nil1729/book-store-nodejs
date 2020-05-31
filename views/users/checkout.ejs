@@ -28,25 +28,36 @@
                                 <tr>
                                     <td><img src="<%= cartItem.book.image  %>" alt="Book Cover" class="img-thumbnail" style="height: 8rem; width: 8rem;"></td>
                                     <td><%= cartItem.book.title  %> </td>
-                                    <td class="text-danger">$ <%= cartItem.book.price  %> </td>
+                                    <td class="text-danger">₹ <%= cartItem.book.price  %> </td>
                                     <td>
                                         <%= cartItem.quantity %> 
                                     </td>
                                     <td class="text-danger">
-                                        $ <%= cartItem.quantity * cartItem.book.price  %> 
+                                        ₹ <%= cartItem.quantity * cartItem.book.price  %> 
                                     </td>
                                 </tr>
                         <% }) %>
                         <tr class="lead font-weight-bold text-primary">
                             <td colspan="3">Grand Total</td>
-                            <td colspan="2"> $ <%= total  %> </td>
+                            <td colspan="2"> ₹ <%= total  %> </td>
                         </tr>
                     </tbody>
                   </table>
             </div>
             <hr class="my-3">
             <div class="row">
-                <button class="ml-auto mr-3 btn btn-warning">Proceed to Buy</button>
+                <form action="/users/order" method="POST" class="mx-auto">
+                    <script
+                      src="https://checkout.stripe.com/checkout.js"
+                      class="stripe-button"
+                      data-key="pk_test_FlAojKcuIGhVk1nR6Tk2QHrD00nwi3ZZ18"
+                      data-name="BOOK STORE"
+                      data-description="Technology Books for Web development"
+                      data-amount="<%= total*100 %>"
+                      data-currency="inr"
+                      data-image="https://cdn3.iconfinder.com/data/icons/book-shop-category-ouline/512/Book_Shop_Category-10-512.png">
+                    </script>
+                </form>
             </div>
         </div>
   </div>

@@ -1,0 +1,69 @@
+<%- include ('../partials/_header.ejs') %>
+<nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 lead">
+        <img src="https://cdn3.iconfinder.com/data/icons/book-shop-category-ouline/512/Book_Shop_Category-10-512.png" alt="" style="height: 2.5em; width: 2.5em;" class="img-thumbnail rounded-circle">
+        Book Store</span>
+    <span>
+        <a href="/users/dashboard" class="btn btn-sm btn-info">Go to Dashboard</a>  
+    </span>
+  </nav>
+  <%- include ('../partials/_msg.ejs')  %>
+  <div class="container mt-3">
+    
+        <div class="jumbotron p-3">
+            <div class="d-flex justify-content-around" style="font-size: 25px; color: darkblue;">
+                <span>Your Orders Summary</span> 
+            </div>
+            <hr class="my-3">
+            <div class="container mt-2">
+                <table class="table table-bordered bg-light table-responsive-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Details</th>
+                        <th scope="col">Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% orders.forEach(order=>{ %>
+                                <tr>
+                                    <td><%= order._id  %> </td>
+                                    <td class="text-danger">₹ <%= order.amount  %> </td>
+                                    <td>
+                                        <table class="table table-bordered bg-light table-responsive-sm">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col">Title</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Quantity</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% order.details.forEach(cartItem=>{ %>
+                                                        <tr>
+                                                            <td><%= cartItem.book.title  %> </td>
+                                                            <td class="text-danger">₹ <%= cartItem.book.price  %> </td>
+                                                            <td>
+                                                                <%= cartItem.quantity %> 
+                                                            </td>
+                                                        </tr>
+                                                <% }) %>
+                                            </tbody>
+                                          </table>
+                                    </td>
+                                    <td>
+                                       <%= order.createdAt.toLocaleDateString()  %>
+                                       <br>
+                                       <%= order.createdAt.toLocaleTimeString()  %>  
+                                    </td>
+                                </tr>
+                        <% }) %>
+                    </tbody>
+                  </table>
+            </div>
+            <hr class="my-3">
+        </div>
+  </div>
+
+        <%- include ('../partials/_footer.ejs') %>

@@ -6,13 +6,13 @@
     </span>
     <span>
       <% if(typeof user === 'undefined'){ %>
-          <a href="/users/login" class="btn btn-success">Login</a>
+          <a href="/users/login" class="btn btn-sm btn-success">Login</a>
       <% } else{%>
           <span class="lead mr-2 capital user-name-home"><%= user.name  %> </span>
-          <a href="/users/dashboard" class="btn btn-success d-inline">Go to Dashboard</a>
+          <a href="/users/dashboard" class="btn btn-sm btn-success d-inline">Go to Dashboard</a>
       <% } %>
       <% if(typeof user !== 'undefined' && user.role === 'admin'){ %>    
-        <a href="/books/new" class="btn btn-primary">Add a New Book</a>
+        <a href="/books/new" class="btn btn-sm btn-primary">Add a New Book</a>
       <% } %> 
     </span>
   </nav>
@@ -30,7 +30,7 @@
           <div class="card-body" style="background-color:#efe3d4">
             <h5 class="card-title"><%= book.title %></h5>
             <p class="card-text"><%= book.description.substr(0, 100)%>.... </p>
-            <h3 class="lead text-danger p-0">Price: $ <%= book.price %></h3>
+            <h3 class="lead text-danger p-0">Price: ₹ <%= book.price %></h3>
             <hr class="my-2">
             <a href="/books/view/<%= book._id %> " class="btn btn-primary">Book Details</a>
           </div>

@@ -4,8 +4,9 @@
         <img src="https://cdn3.iconfinder.com/data/icons/book-shop-category-ouline/512/Book_Shop_Category-10-512.png" alt="" style="height: 2.5em; width: 2.5em;" class="img-thumbnail rounded-circle">
         Book Store</span>
     <span>
-        <a href="/books" class="btn btn-success">Go to Store</a>
-          <a href="/users/logout" class="btn btn-warning">Log Out</a>  
+        <a href="/books" class="btn btn-sm btn-success">Go to Store</a>
+        <a href="/users/orders" class="btn btn-sm btn-info">Your Orders</a>
+          <a href="/users/logout" class="btn btn-sm btn-warning">Log Out</a>  
     </span>
   </nav>
   <div class="container">
@@ -45,7 +46,7 @@
                                 <tr>
                                     <td><img src="<%= cartItem.book.image  %>" alt="Book Cover" class="img-thumbnail" style="height: 8rem; width: 8rem;"></td>
                                     <td class="lead text-primary"><%= cartItem.book.title  %> </td>
-                                    <td class="lead text-danger">$ <%= cartItem.book.price  %> </td>
+                                    <td class="lead text-danger">₹ <%= cartItem.book.price  %> </td>
                                     <td>
                                         <form action="/users/cart/<%= cartItem.book._id  %>/delete?_method=DELETE" class="d-inline" method="POST">
                                             <button type="submit" class="btn btn-sm btn-danger">Remove</button>
@@ -82,7 +83,7 @@
                         <% user.carts.forEach(cartItem=>{ %>
                                 <tr>
                                     <td class="lead text-primary"><%= cartItem.book.title  %> </td>
-                                    <td class="lead text-danger">$ <%= cartItem.book.price  %> </td>
+                                    <td class="lead text-danger">₹ <%= cartItem.book.price  %> </td>
                                     <td>
                                         <select
                                             name="<%= cartItem.book._id %>"

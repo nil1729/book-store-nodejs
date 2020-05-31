@@ -11,14 +11,14 @@
                     <h1 class="display-4 text-success text-center"><%= book.title %></h1>
                     <hr class="my-2">
                     <p><%= book.description %></p>
-                    <h3 class="lead text-danger">Price: $ <%= book.price %></h3>
+                    <h3 class="lead text-danger">Price: ₹ <%= book.price %></h3>
                     <hr class="mb-2">
                     <% if(typeof user !== 'undefined' && user.role === 'admin'){ %> 
                         <a href="/books/edit/<%= book._id %>" class="btn btn-primary">Edit Details</a>
                         <form action="/books/delete/<%= book._id  %>?_method=DELETE" class="d-inline" method="POST">
                             <button type="submit" class="btn btn-danger">Delete Book</button>
                         </form>
-                    <% }else if(typeof user === 'undefined' || typeof user !== 'undefined' && user.carts.findIndex(b=> b.equals(book._id))===-1){ %> 
+                    <% }else if(typeof user === 'undefined' || typeof user !== 'undefined' && user.carts.findIndex(item=> item.book.equals(book._id))===-1){ %> 
                     <form action="/users/cart/<%= book._id  %>?_method=PUT" class="d-inline" method="POST">
                         <button type="submit" class="btn btn-warning">Add to Cart</button>
                     </form>
