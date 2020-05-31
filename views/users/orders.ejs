@@ -53,9 +53,9 @@
                                           </table>
                                     </td>
                                     <td>
-                                       <%= order.createdAt.toLocaleDateString('en-US')  %>
+                                       <%= order.createdAt.split(',')[0]  %>
                                        <br>
-                                       <%= order.createdAt.toLocaleTimeString('en-US') %>  
+                                       <%= order.createdAt.split(',')[1]  %>
                                     </td>
                                 </tr>
                         <% }) %>

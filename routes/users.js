@@ -8,7 +8,7 @@ const Book = require('../models/Book');
 const sgMail = require('@sendgrid/mail');
 const stripe = require('stripe')(require('../config/keys').stripeKey);
 const Order = require('../models/Order');
-
+const moment = require('moment')
 
 // Get Route For Register
 router.get('/register', (req, res)=>{
@@ -199,10 +199,10 @@ router.post('/checkout', checkAuthentication , async (req, res) => {
 
 router.post('/order', checkAuthentication, async (req, res) => {
     const {stripeEmail, stripeToken } = req.body;
-    const customer = await stripe.customers.create({
-        email: stripeEmail,
-        source: stripeToken,
-    });
+    // const customer = await stripe.customers.create({
+    //     email: stripeEmail,
+    //     source: stripeToken,
+    // });
     User.findById(req.user.id).populate("carts.book").exec( async(err, user)=>{
         if(err){
             req.flash('error', 'Could not Process Your Payment')
@@ -212,63 +212,64 @@ router.post('/order', checkAuthentication, async (req, res) => {
             user.carts.forEach(cartItem => {
                 total += cartItem.quantity * cartItem.book.price
            });
-           const charge = await stripe.charges.create({
-                customer: customer.id,
-                description: "Book Store Orders",
-                amount: total * 100,
-                currency: 'inr',
-            });
+        //    const charge = await stripe.charges.create({
+        //         customer: customer.id,
+        //         description: "Book Store Orders",
+        //         amount: total * 100,
+        //         currency: 'inr',
+        //     });
             try {
                 const order = new Order({
                     user,
                     details:user.carts,
-                    amount: total
+                    amount: total,
+                    createdAt: moment().format('MMMM Do YYYY, h:mm:ss a')
                 });
                 await order.save();
                 let updatedUser = req.user;
                 updatedUser.carts = [];
                 await User.findByIdAndUpdate(updatedUser.id, updatedUser);
 
-                let msg = `
-                <table>
-                    <thead>
-                        <tr style="font-size: 1.2em; color:blue; letter-spacing: 1.2px;">
-                            <th scope="col">Title</th>
-                            <th scope="col" style="margin: 0 2em">Price</th>
-                            <th scope="col">Quantity</th>
-                        </tr>
-                    </thead>
-                <tbody>
-                `;
-                user.carts.forEach(item => {
-                    msg += `
-                    <tr style="letter-spacing: 1.2px; font-size: 1.6em">
-                        <td> ${item.book.title} </td>
-                        <td style="color: red; margin: 0 2em">₹ ${item.book.price} </td>
-                        <td style="text-align: center">${item.quantity}</td>
-                    </tr>
-                    `
-                });
-                msg+=`
-                </tbody>
-                </table>
-                <h3 style="font-size: 1.2em;color: #f511ed">Your Order Id: ${order._id}</h3>
-                <h2  style="color: red">Total Amount: ₹ ${total}</h2>
-                <p  style="font-size: 1.2em; color: #d534eb">Your Order reciept Download from <a href=${charge.receipt_url}>here</a></p>
-                <h2 style="color: purple">Your Orders will be delivered to you within 3/4 business days</h3>
-                <h4>Thanks For Shopping With Us</h4>
-                <p style="color: orange">admin, BOOK STORE</p>
-                </body>
-                `
-                sgMail.setApiKey(require('../config/keys').sendGridKey);
-                const mail = {
-                    to: req.user.email,
-                    from: 'BOOK STORE <nilanjan1729reso@gmail.com>',
-                    subject: 'Order Summary BOOK STORE',
-                    text: 'Order Summary',
-                    html: msg
-                };
-                sgMail.send(mail);
+                // let msg = `
+                // <table>
+                //     <thead>
+                //         <tr style="font-size: 1.2em; color:blue; letter-spacing: 1.2px;">
+                //             <th scope="col">Title</th>
+                //             <th scope="col" style="margin: 0 2em">Price</th>
+                //             <th scope="col">Quantity</th>
+                //         </tr>
+                //     </thead>
+                // <tbody>
+                // `;
+                // user.carts.forEach(item => {
+                //     msg += `
+                //     <tr style="letter-spacing: 1.2px; font-size: 1.6em">
+                //         <td> ${item.book.title} </td>
+                //         <td style="color: red; margin: 0 2em">₹ ${item.book.price} </td>
+                //         <td style="text-align: center">${item.quantity}</td>
+                //     </tr>
+                //     `
+                // });
+                // msg+=`
+                // </tbody>
+                // </table>
+                // <h3 style="font-size: 1.2em;color: #f511ed">Your Order Id: ${order._id}</h3>
+                // <h2  style="color: red">Total Amount: ₹ ${total}</h2>
+                // <p  style="font-size: 1.2em; color: #d534eb">Your Order reciept Download from <a href=${charge.receipt_url}>here</a></p>
+                // <h2 style="color: purple">Your Orders will be delivered to you within 3/4 business days</h3>
+                // <h4>Thanks For Shopping With Us</h4>
+                // <p style="color: orange">admin, BOOK STORE</p>
+                // </body>
+                // `
+                // sgMail.setApiKey(require('../config/keys').sendGridKey);
+                // const mail = {
+                //     to: req.user.email,
+                //     from: 'BOOK STORE <nilanjan1729reso@gmail.com>',
+                //     subject: 'Order Summary BOOK STORE',
+                //     text: 'Order Summary',
+                //     html: msg
+                // };
+                // sgMail.send(mail);
                 req.flash('success', 'Your Orders are Successful. Order Invoice Sent to your Mail');
                 res.redirect('/users/orders');
             } catch (e) {

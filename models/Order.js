@@ -5,9 +5,8 @@ const orderSchema = mongoose.Schema({
         ref: "User"
     },
     createdAt:{
-        type: Date,
+        type: String,
         required: true,
-        default: Date.now()
     },
     details:[{
         book:{
