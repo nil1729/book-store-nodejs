@@ -4,6 +4,9 @@
 .home-books{
     display: grid; grid-template-columns: repeat(3, 1fr); grid-row-gap: 2em;
 }
+.home-books > .card{
+    justify-self: center;
+}
 .capital{
     text-transform: capitalize;
 }
@@ -17,8 +20,11 @@
 }
 
 @media only screen and (max-width: 600px){
-    .home-books{
-        display: block;
+    .home-books {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center
     }
     .home-books .card{
         margin: 1em 0;
