@@ -279,8 +279,13 @@ router.post('/order', checkAuthentication, async (req, res) => {
 });
 
 router.get('/orders', checkAuthentication, async (req, res) => {
-    const orders = await Order.find({user: req.user}).sort({createdAt:-1}).populate("details.book").exec();
-    res.render('users/orders', {orders});
+    try{
+        const orders = await Order.find({user: req.user}).populate("details.book").exec();
+        res.render('users/orders', {orders});
+        // res.json(orders);
+    }catch(e){
+        res.json(e);
+    }
 });
 
 
