@@ -6,7 +6,7 @@
 
 * Payment Method using `Stripe`
 ---
-#### Website Preview
+### Website Preview
 * <img src="./img/web1.png"/>
 * <img src="./img/web2.png"/>
 ---
