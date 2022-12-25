@@ -1,9 +1,11 @@
-FROM node
+FROM node:14.21.1-alpine
 
-WORKDIR /usr/book-store
+WORKDIR /app
 
-COPY . .
+COPY package.json .
 
 RUN npm install
 
-CMD ["npm", "start"]
+COPY . .
+
+CMD [ "npm", "start" ]

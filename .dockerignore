@@ -2,3 +2,9 @@ node_modules
 .env
 .git
 .gitignore
+Dockerfile
+.dockerignore
+.nvmrc
+.prettierrc
+nginx.conf
+renovate.json
