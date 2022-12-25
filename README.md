@@ -2,7 +2,7 @@
 
 This Site is a mini Project using NodeJS and EJS Templating. Which has a Customer Panel and an Admin Panel.
 
-- #### Live Demo [here](https://book-store.nildeb.xyz/).
+- #### Live Demo [here](https://book-store.projects.nilanjan.tech).
   - Test User Credentials
     - Email: `test.nilanjan.deb@gmail.com`
     - Password: `123456`
@@ -26,7 +26,7 @@ This Site is a mini Project using NodeJS and EJS Templating. Which has a Custome
 5. `Bootstrap` is used for building UI
 6. Site has `Admin` functionality by which site owner can add Books to this Store.
 7. `Stripe` is used for Payment Gateway.
-8. `SendGrid` API is used for sending Emails.
+8. `SendinBlue` API is used for sending emails.
 
 ---
 
