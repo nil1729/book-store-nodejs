@@ -70,9 +70,7 @@ router.post('/register', async (req, res) => {
         const msg = `
           <h2 style="color: rgb(90, 10, 219); text-transform: capitalize;">Hello, ${savedUser.name}</h2>
           <h4 style="font-style: italic;">You are now a Customer of our <strong>BOOK STORE</strong></h4>
-          <h2>Your Password: <span style="color: red; font-size: 25px;">${newUser.password}</span></h2>  
-          <p>You can now login and shopinng with us!!</p>
-
+          <p>You can now login and shopping with us!!</p>
           <h5>Thank you</h5>
           <h6>Admin, Book Store</h6>
           <img src="https://cdn3.iconfinder.com/data/icons/book-shop-category-ouline/512/Book_Shop_Category-10-512.png" alt="" style="height: 3em; width: 3em; border-radius: 50%">
